@@ -1,0 +1,22 @@
+.task{
+	width:650px;
+	border: 1px solid rgba(0,0,0, 0.3);
+	padding:15px;
+	display:flex;
+	justify-content: space-between;
+	margin-bottom:15px;
+}
+.task button{
+	background-color:transparent;
+	border:none;
+	outline: none;
+	cursor:pointer;
+	transition: .3s linear transform;
+}
+.task button:hover{
+	transform:scale(1.5);
+}
+.task h1{
+	word-break: break-all;
+	margin-bottom:10px;
+}

@@ -1,32 +1,21 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
+import { useTodo } from '../Hooks/useTodo'
 import './Todo.scss'
-import TaskData from './constants'
 import Task from './layout/Task'
 
 export default function Todo() {
-	const [tasks, setTasks] = useState<TaskData[]>([])
-	const [titleVal, setTitleVal] = useState('')
-	const [descVal, setDescVal] = useState('')
-
-	const title = useRef<HTMLInputElement>(null)
+	const {
+		tasks,
+		title,
+		addTask,
+		clearTask,
+		titleVal,
+		setTitleVal,
+		descVal,
+		setDescVal,
+	} = useTodo()
 	const desc = useRef<HTMLInputElement>(null)
 	let index: number = 1
-
-	function addTask() {
-		const newTask: TaskData = {
-			id: Date.now(),
-			title: title.current!.value,
-			description: 'Task ID:',
-		}
-
-		setTasks(prev => [...prev, newTask])
-		setDescVal('')
-		setTitleVal('')
-	}
-
-	function clearTask(id: number) {
-		setTasks(prev => prev.filter(task => task.id !== id))
-	}
 
 	return (
 		<div className='todo'>
@@ -45,7 +34,9 @@ export default function Todo() {
 					onChange={e => setDescVal(e.currentTarget.value)}
 					placeholder='Search'
 				/>
-				<button onClick={addTask}>Add</button>
+				<button onClick={addTask} disabled={titleVal.trim() === ''}>
+					Add
+				</button>
 			</div>
 			{tasks.map(task => (
 				<Task
